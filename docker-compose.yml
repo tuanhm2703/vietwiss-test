@@ -11,6 +11,7 @@ services:
       - 'host.docker.internal:host-gateway'
     ports: 
       - '${APP_VIETWISS_PORT:-3000}:80'
+      - '${APP_VIETWISS_PORT:-4000}:5173'
     environment:
       WWWUSER: '${WWWUSER:-1000}'
       LARAVEL-SAIL: 1
