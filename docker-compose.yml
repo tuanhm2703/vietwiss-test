@@ -1,15 +1,15 @@
 version: '3'
 services:
   vietwiss:
-    build: 
+    build:
       context: ./vendor/laravel/sail/runtimes/8.0
       dockerfile: Dockerfile
-      args: 
+      args:
         WWWGROUP: '${WWWGROUP:-1000}'
     image: sail-8.0/app
     extra_hosts:
       - 'host.docker.internal:host-gateway'
-    ports: 
+    ports:
       - '${APP_VIETWISS_PORT:-3000}:80'
       - '${APP_VIETWISS_PORT:-4000}:5173'
     environment:
@@ -31,10 +31,19 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: vietwiss
+      MYSQL_DATABASE: vietwiss
     networks:
       - vietwiss
     volumes:
       - 'vietwiss-mysql:/var/lib/mysql'
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - vietwiss
+
 networks:
   vietwiss:
     driver: bridge
